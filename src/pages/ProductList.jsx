@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import DataTable from '../components/table/DataTable';
+import TablePrueba from '../components/table/TablePrueba';
 
 export const ProductList = () => {
 	const [products, setProducts] = useState([]);
@@ -12,25 +13,19 @@ export const ProductList = () => {
 		{ Header: 'Price', accessor: 'price' },
 	];
 
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				const response = await axios.get(
-					'http://localhost:8080/api/product/all',
-				);
-				setProducts(response.data);
-			} catch (error) {
-				console.error('Error fetching products:', error);
-			}
-		};
+	const loadProducts = async () => {
+		const result = await axios.get('http://localhost:8080/api/product/all');
+		setProducts(result.data);
+	};
 
-		fetchProducts();
+	useEffect(() => {
+		loadProducts();
 	}, []);
 
 	return (
 		<div>
 			<h1 className='text-2xl font-bold mb-4'>Product List</h1>
-			<DataTable columns={columns} data={products} />
+			<TablePrueba columns={columns} data={products} />
 		</div>
 	);
 };
