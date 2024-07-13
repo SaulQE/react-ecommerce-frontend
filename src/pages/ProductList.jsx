@@ -25,7 +25,7 @@ export const ProductList = () => {
 	return (
 		<div>
 			<h1 className='text-2xl font-bold mb-4'>Product List</h1>
-			<TablePrueba columns={columns} data={products} />
+			<DataTable columns={columns} data={products} />
 		</div>
 	);
 };
