@@ -1,106 +1,76 @@
-import { Fragment, useState } from 'react';
-import { BsArrowLeftShort, BsSearch, BsChevronDown } from 'react-icons/bs';
-import { AiFillAppstore } from 'react-icons/ai';
-import { RiDashboardFill } from 'react-icons/ri';
+import React, { useState } from 'react';
+import { HiMenuAlt3 } from 'react-icons/hi';
+import { MdOutlineDashboard } from 'react-icons/md';
+import { RiSettings4Line } from 'react-icons/ri';
+import { TbReportAnalytics } from 'react-icons/tb';
+import { AiOutlineUser, AiOutlineHeart } from 'react-icons/ai';
+import { FiMessageSquare, FiFolder, FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export const Sidebar = () => {
-	const [open, setOpen] = useState(true);
-	const [submenuOpen, setSubmenuOpen] = useState(false);
-	const Menus = [
-		{ title: 'Dashboard' },
-		{ title: 'Pages' },
-		{ title: 'Media', spacing: true },
-		{
-			title: 'Projects',
-			submenu: true,
-			submenuItems: [
-				{ title: 'Submenu 1' },
-				{ title: 'Submenu 2' },
-				{ title: 'Submenu 3' },
-			],
-		},
-		{ title: 'Analytics' },
-		{ title: 'Profile', spacing: true },
-		{ title: 'Setting' },
-		{ title: 'Logout' },
+	const menus = [
+		{ name: 'dashboard', link: '/', icon: MdOutlineDashboard },
+		{ name: 'user', link: '/', icon: AiOutlineUser },
+		{ name: 'messages', link: '/', icon: FiMessageSquare },
+		{ name: 'analytics', link: '/', icon: TbReportAnalytics, margin: true },
+		{ name: 'File Manager', link: '/', icon: FiFolder },
+		{ name: 'Cart', link: '/', icon: FiShoppingCart },
+		{ name: 'Saved', link: '/', icon: AiOutlineHeart, margin: true },
+		{ name: 'Setting', link: '/', icon: RiSettings4Line },
 	];
+
+	const [open, setOpen] = useState(true);
 
 	return (
 		<>
-			<div className='flex'>
+			<section className='flex gap-6'>
 				<div
-					className={`${open ? 'w-72' : 'w-20'} bg-glass-dark h-screen p-5 pt-8 duration-300
-				relative`}
+					className={`bg-[#0e0e0e] min-h-screen ${
+						open ? 'w-72' : 'w-16'
+					} duration-500 text-gray-100 px-4`}
 				>
-					<BsArrowLeftShort
-						className={`bg-white text-glass-dark 
-					text-3xl rounded-full absolute -right-3 top-9 border
-					border-glass-dark cursor-pointer ${!open && 'rotate-180'}`}
-						onClick={() => setOpen(!open)}
-					/>
-					<div className='inline-flex'>
-						<AiFillAppstore className='bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2' />
-						<h1
-							className={`text-white origin-left font-medium text-2xl duration-100 ${!open && 'scale-0'}`}
-						>
-							eCommerce
-						</h1>
-					</div>
-					<div
-						className={`flex items-center rounded-md bg-glass-light mt-6 ${!open ? 'px-2.5 py-2.5' : 'px-4 py-1'}`}
-					>
-						<BsSearch
-							className={`text-white text-lg block float-left cursor-pointer ${open && 'mr-2'}`}
-						/>
-						<input
-							type={'search'}
-							placeholder='Search'
-							className={`text-base bg-transparent w-full text-white border-none focus:ring-0 ${!open && 'hidden'}`}
+					<div className='py-3 flex justify-end'>
+						<HiMenuAlt3
+							size={26}
+							className='cursor-pointer'
+							onClick={() => setOpen(!open)}
 						/>
 					</div>
-
-					<ul className='pt-2'>
-						{Menus.map((menu, index) => (
-							<Fragment key={index}>
-								<li
-									className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-glass-light rounded-md ${menu.spacing ? 'mt-9' : 'mt-2'}`}
+					<div className='mt-4 flex flex-col gap-4 relative'>
+						{menus?.map((menu, i) => (
+							<Link
+								to={menu?.link}
+								key={i}
+								className={` ${
+									menu?.margin && 'mt-5'
+								} group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+							>
+								<div>{React.createElement(menu?.icon, { size: '20' })}</div>
+								<h2
+									style={{
+										transitionDelay: `${i + 2}00ms`,
+									}}
+									className={`whitespace-pre duration-500 ${
+										!open && 'opacity-0 translate-x-28 overflow-hidden'
+									}`}
 								>
-									<span className='text-2xl block float-left'>
-										<RiDashboardFill />
-									</span>
-									<span
-										className={`text-base font-medium flex-1 duration-100 ${!open && 'hidden'}`}
-									>
-										{menu.title}
-									</span>
-									{menu.submenu && open && (
-										<BsChevronDown
-											className={`${submenuOpen && 'rotate-180'}`}
-											onClick={() => setSubmenuOpen(!submenuOpen)}
-										/>
-									)}
-								</li>
-								{menu.submenu && submenuOpen && open && (
-									<ul>
-										{menu.submenuItems.map((submenuItem, index) => (
-											<li
-												key={index}
-												className='text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-glass-light rounded-md'
-											>
-												{submenuItem.title}
-											</li>
-										))}
-									</ul>
-								)}
-							</Fragment>
+									{menu?.name}
+								</h2>
+								<h2
+									className={`${
+										open && 'hidden'
+									} absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+								>
+									{menu?.name}
+								</h2>
+							</Link>
 						))}
-					</ul>
+					</div>
 				</div>
-				<div className='p-7'>
-					<h1 className='text-2xl font-semibold'>Home Page</h1>
+				<div className='m-3 text-xl text-gray-900 font-semibold'>
+					REACT TAILWIND
 				</div>
-			</div>
+			</section>
 		</>
 	);
 };
