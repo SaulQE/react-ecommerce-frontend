@@ -8,7 +8,7 @@ function App() {
 			<Sidebar />
 
 			<Routes>
-				{/* <Route path='/products' element={<ProductList />} /> */}
+				<Route path='/products' element={<ProductList />} />
 				{/* Otras rutas */}
 			</Routes>
 		</Router>
