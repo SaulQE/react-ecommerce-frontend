@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import DataTable from '../components/table/DataTable';
-import TablePrueba from '../components/table/TablePrueba';
 
 export const ProductList = () => {
 	const [products, setProducts] = useState([]);
@@ -23,10 +22,10 @@ export const ProductList = () => {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<h1 className='text-2xl font-bold mb-4'>Product List</h1>
 			<DataTable columns={columns} data={products} />
-		</div>
+		</>
 	);
 };
 
