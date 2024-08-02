@@ -7,10 +7,10 @@ export const DataTable = ({ columns, data }) => {
 				<table className='w-full'>
 					<thead className='border-b-2 border-gray-500'>
 						<tr>
-							{columns.map(column => (
+							{columns.map((column, columnIndex) => (
 								<th
 									className='p-3 text-sm font-bold tracking-wide text-left'
-									key={column.accessor}
+									key={columnIndex} // Utiliza el índice de la columna como clave
 								>
 									{column.Header}
 								</th>
@@ -18,17 +18,19 @@ export const DataTable = ({ columns, data }) => {
 						</tr>
 					</thead>
 					<tbody className='divide-y divide-white'>
-						{data.map((row, rowIndex) => (
+						{data.map((row) => (
 							<tr
-								key={rowIndex}
+								key={row.productId} // Utiliza el productId como clave de la fila
 								className='bg-white/50 even:bg-slate-50 text-white'
 							>
-								{columns.map(column => (
+								{columns.map((column, columnIndex) => (
 									<td
 										className='p-3 text-sm text-gray-700 whitespace-no-wrap'
-										key={column.accessor}
+										key={`${row.productId}-${columnIndex}`} // Combina el productId y el índice de la columna para una clave única
 									>
-										{row[column.accessor]}
+										{column.Cell
+											? column.Cell({ value: row[column.accessor] })
+											: row[column.accessor]}
 									</td>
 								))}
 							</tr>
