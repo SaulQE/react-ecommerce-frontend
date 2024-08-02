@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { HiMenuAlt3 } from 'react-icons/hi';
-import { MdOutlineDashboard, MdOutlineShoppingCart } from 'react-icons/md';
+import {
+	MdOutlineDashboard,
+	MdOutlineShoppingCart,
+	MdOutlineInventory2,
+} from 'react-icons/md';
 import { RiSettings4Line } from 'react-icons/ri';
-import { TbReportAnalytics } from 'react-icons/tb';
 import { AiOutlineUser, AiOutlineHeart } from 'react-icons/ai';
 import { FiFolder, FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -12,8 +15,8 @@ export const Sidebar = () => {
 		{ name: 'Dashboard', link: '/', icon: MdOutlineDashboard },
 		{ name: 'Users', link: '/', icon: AiOutlineUser },
 		{ name: 'Productos', link: '/products', icon: MdOutlineShoppingCart },
-		{ name: 'analytics', link: '/', icon: TbReportAnalytics, margin: true },
-		{ name: 'File Manager', link: '/', icon: FiFolder },
+		{ name: 'Inventario', link: '/inventories', icon: MdOutlineInventory2 },
+		{ name: 'File Manager', link: '/', icon: FiFolder, margin: true },
 		{ name: 'Cart', link: '/', icon: FiShoppingCart },
 		{ name: 'Saved', link: '/', icon: AiOutlineHeart, margin: true },
 		{ name: 'Setting', link: '/', icon: RiSettings4Line },
